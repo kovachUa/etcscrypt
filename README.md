@@ -14,3 +14,5 @@ Whether you're a sysadmin, developer, or someone looking to simplify your day-to
 Кожен скрипт має докладну документацію і може бути легко налаштований під конкретні вимоги. 
 Незалежно від того, чи ви системний адміністратор, розробник або просто шукаєте спрощення повсякденних завдань, 
 ви знайдете ці скрипти незамінними.
+
+ZFS_snapshots_and_delete_those_older_than_N_days.sh
