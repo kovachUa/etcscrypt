@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Змінні
-pool_names=("data/foto" "data/doc" "data/backup" "data/etc")  # Замініть на відповідні імена ваших пулів ZFS
+pool_names=("name/pool")  # Замініть на відповідні імена ваших пулів ZFS
 snapshot_prefix="snapshot"  # Префікс для імені снапшотів
 days_to_keep=3  # Кількість днів, протягом яких тримати снапшоти
 
