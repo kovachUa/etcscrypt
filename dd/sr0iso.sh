@@ -18,6 +18,8 @@ echo "Обчислення хеш-суми..."
 hash_sum=$(sha256sum "${image_name}" | awk '{ print $1 }')
 
 # Записуємо хеш-суму в файл
-echo "${hash_sum}" > hash_sum.txt
-
+echo "${image_name} ${hash_sum}" | tee -a hash_sum.txt
+chown $USER ${image_name}
 echo "Операція завершена. Образ диску: ${image_name}, хеш-сума: ${hash_sum}"
+eject /dev/sr0
+
