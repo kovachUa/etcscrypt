@@ -11,15 +11,28 @@ distribution_filename=$(basename "$distribution_link")
 echo "Введіть хеш-суму дистрибутива:"
 read expected_hash
 
+# Завантаження дистрибутиву
+echo "Завантаження дистрибутиву..."
+wget "$distribution_link" -O "$distribution_filename"
+
+# Перевірка хеш-суми
+echo "Перевірка хеш-суми..."
+calculated_hash=$(sha256sum "$distribution_filename" | awk '{ print $1 }')
+
+if [ "$calculated_hash" != "$expected_hash" ]; then
+  echo "Хеш-сума не співпадає. Відміна."
+  exit 1
+fi
+
 # Питання користувача щодо запису на диск
 echo "Бажаєте записати дистрибутив на диск? (Так/Ні)"
 read write_to_disk
 
-# Виведення доступних дисків
-echo "Доступні диски:"
-lsblk
-
 if [[ "$write_to_disk" == "Так" ]]; then
+  # Виведення доступних дисків
+  echo "Доступні диски:"
+  lsblk
+
   # Введення шляху до USB-диска від користувача
   echo "Введіть шлях до USB-диска (наприклад, /dev/sdb):"
   read target_disk
@@ -33,19 +46,4 @@ if [[ "$write_to_disk" == "Так" ]]; then
   sudo dd if="$distribution_filename" of="$target_disk" bs=4M status=progress conv=fsync
 
   echo "Запис на диск завершено."
-else
-  # Завантаження дистрибутиву
-  echo "Завантаження дистрибутиву..."
-  wget "$distribution_link" -O "$distribution_filename"
-
-  # Перевірка хеш-суми
-  echo "Перевірка хеш-суми..."
-  calculated_hash=$(sha256sum "$distribution_filename" | awk '{ print $1 }')
-
-  if [ "$calculated_hash" != "$expected_hash" ]; then
-    echo "Хеш-сума не співпадає. Відміна."
-    exit 1
-  fi
-
-  echo "Завантаження дистрибутиву завершено. Перевірка хеш-суми пройшла успішно."
 fi
