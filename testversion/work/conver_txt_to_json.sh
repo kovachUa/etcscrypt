@@ -1,4 +1,3 @@
- 
 #!/bin/bash
 
 # Запит шляху до вхідного файлу
@@ -14,13 +13,21 @@ fi
 input_file_name=$(basename "$input_file")
 file_name="${input_file_name%.*}"
 
-# Читання URL-адресів з вхідного файлу та створення JSON-об'єкту
-json_object="{"
-while read -r url; do
-  json_object+="\"url\": \"$url\","
+# Читання URL-адресів з вхідного файлу та збереження їх у масиві
+urls=()
+while IFS= read -r url; do
+  urls+=("$url")
 done < "$input_file"
-json_object="${json_object%,}" # Видалення останньої коми
-json_object+="}"
+
+# Створення JSON-об'єкту з масиву URL-адрес
+json_object="{\"urls\": ["
+for ((i = 0; i < ${#urls[@]}; i++)); do
+  json_object+="\"${urls[i]}\""
+  if ((i < ${#urls[@]} - 1)); then
+    json_object+=", "
+  fi
+done
+json_object+="]}"
 
 # Встановлення вихідного JSON-файлу з такою ж назвою, як вхідний файл
 output_file="${file_name}.json"
