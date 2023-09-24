@@ -1,0 +1,25 @@
+├── dd
+│   ├── description.txt
+│   ├── record_on_media.sh 				OK
+│   └── sr0iso.sh						OK
+├── docker
+│   └── docker.sh						TESTING
+├── foto
+│   └── f.sh
+├── kvm
+│   ├── description.txt
+│   └── kvm_setup.sh					OK/50
+├── LICENSE
+├── manual.txt
+├── network
+│   ├── firewall
+│   │   └── port_forwarding.sh      TESTING
+│   │   └── firewall.sh             TESTING not work
+│   ├── nfs_smb_install.sh			TESTING
+│   └── sshi.sh						TESTING
+├── README.md
+├── testing.txt
+└── zfs
+    ├── description.txt
+    ├── zfsins.sh					TESTING
+    └── ZFS_snapshots.sh			OK
